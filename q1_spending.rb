@@ -6,11 +6,7 @@ class Spending
   end
 
   def to_s
-  	"amount:#{@amount} \t on #{@item}"
+  	"#{@item} \t #{@amount}"
   end
 
 end
-
-s = Spending.new(20.99, "book")
-
-p s.to_s
