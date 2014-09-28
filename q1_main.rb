@@ -1,4 +1,5 @@
 require_relative 'q1_family_member'
+require_relative 'q1_io'
 
 class Main
   attr_accessor :family_member_list
@@ -9,23 +10,87 @@ class Main
 
 
   def menu
+bigText = "
+░█──░█ █▀▀ █── █▀▀ █▀▀█ █▀▄▀█ 　 
+░█░█░█ █▀▀ █── █── █──█ █─▀─█ 　 
+░█▄▀▄█ ▀▀▀ ▀▀▀ ▀▀▀ ▀▀▀▀ ▀───▀ 　 
+
+▀▀█▀▀ █▀▀█ 　 
+─░█── █──█ 　 
+─░█── ▀▀▀▀ 　 
+
+░█▀▀█ █── █▀▀█ █▀▀▀ █▀▀▀ █▀▀ █ 　 
+░█▀▀▄ █── █──█ █─▀█ █─▀█ ▀▀█ ─ 　 
+░█▄▄█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ ─ 　 
+
+░█▀▀▀ █▀▀█ █▀▄▀█ ─▀─ █── █──█ 　 
+░█▀▀▀ █▄▄█ █─▀─█ ▀█▀ █── █▄▄█ 　 
+░█─── ▀──▀ ▀───▀ ▀▀▀ ▀▀▀ ▄▄▄█ 　 
+
+░█▀▀▀█ █──█ █▀▀ ▀▀█▀▀ █▀▀ █▀▄▀█ 
+─▀▀▀▄▄ █▄▄█ ▀▀█ ──█── █▀▀ █─▀─█ 
+░█▄▄▄█ ▄▄▄█ ▀▀▀ ──▀── ▀▀▀ ▀───▀ 
+"
+
+
+       puts bigText
   	num = 0
   	begin
-    puts "Enter a number"
-    num = gets
+  	  puts "1 Show all famliy members(each loop) \n
+        2 Show all famliy members(do loop)\n
+        3 Show Speding list of a famliy member\n
+        4 Show type of a famliy member \n
+        5 Save famliy member and spending list to text file \n
+        6 Exit\n"
+      puts "Enter a number"
+      num = gets
+      num = num.chomp
+      case
+      when num == "1"
+    	puts self.family_member_to_s_each
+      when num == "2"
+    	puts self.family_member_to_s_do
+      when num == "3"
+    	self.search_a_family_member_for_spending_list
+      when num == "4"
+      	self.search_a_family_member_for_type
+      when num == "5"
+    	save_list(self.family_member_and_spending_list_to_s_do)
+      when num == "6"
+		abort("See you!")
+      end
   		
-  	end until num = 2
-
-
-
-
-    puts "Enter a first name"
-    fname = gets
-
-    puts self.search_family_member_by_first_name(fname.chomp).to_s
+  	end until num == "5"
 
   end
 
+
+  def search_a_family_member_for_spending_list
+    puts "Enter a first name"
+    fname = gets
+
+    result = self.search_family_member_by_first_name(fname.chomp)
+    if result.class != String
+    	puts result
+    	puts result.spending_list_to_s
+    else
+    	puts "No record"
+    end
+  end
+
+  def search_a_family_member_for_type
+    puts "Enter a first name"
+    fname = gets
+
+    result = self.search_family_member_by_first_name(fname.chomp)
+    if result.class != String
+    	self.test_type_of_family_member(result)
+    	puts result.spending_list_to_s
+    else 
+      puts "No record"
+    end
+
+  end
 
   def seed_data
   	@family_member_list = Array.new
@@ -62,17 +127,6 @@ class Main
     @family_member_list << fm3
     @family_member_list << fm4
     @family_member_list << fm5
-
-
-    fm21 = FamilyMember.new("John", "Smith", "Female", 30, FamilyMember.STATUS[:married])
-
-    fm22 = FamilyMember.new("Amy", "Smith", "Female", 32, FamilyMember.STATUS[:married])
-
-    fm23 = FamilyMember.new("Liam", "Smith", "male", 3, FamilyMember.STATUS[:single])
-
-    fm24 = FamilyMember.new("Ana", "Smith", "Female", 6, FamilyMember.STATUS[:single])
-
-    fm25 = FamilyMember.new("Lucy", "Smith", "Female", 4, FamilyMember.STATUS[:cat])
   end
 
   def family_member_to_s_each
@@ -90,6 +144,16 @@ class Main
   	  str << fm.to_s + "\n"
   	end
 
+  	str
+  end
+
+  def family_member_and_spending_list_to_s_do
+  	str = "Firstname \t Surname \t Sex \t Status \t Age \n"
+
+  	@family_member_list.each do |fm|
+  	  str << fm.to_s + "\n" <<fm.spending_list_to_s
+  	end
+  	puts str
   	str
   end
 
@@ -123,6 +187,5 @@ class Main
 end
 
 main = Main.new
-puts main.family_member_to_s_each
 
 main.menu

@@ -45,11 +45,11 @@ class FamilyMember
   end
 
   def dog?
-    self.pets? && @status == amilyMember.STATUS[:dog]
+     @status == FamilyMember.STATUS[:dog]
   end
 
   def cat?
-    self.pets? && @status == amilyMember.STATUS[:cat]
+     @status == FamilyMember.STATUS[:cat]
   end
 
   def total_spending
