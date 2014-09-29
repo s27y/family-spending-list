@@ -1,39 +1,26 @@
 require_relative 'q1_family_member'
 require_relative 'q1_io'
 
+# This class is the main class
+#
 class Main
-  attr_accessor :family_member_list
+  attr_accessor :family_member_list  #=> varialbe holds five family members
 
   def initialize
   	self.seed_data
   end
 
-
+# Method displays the main menue and call other method if required
+#
   def menu
-bigText = "
-░█──░█ █▀▀ █── █▀▀ █▀▀█ █▀▄▀█ 　 
-░█░█░█ █▀▀ █── █── █──█ █─▀─█ 　 
-░█▄▀▄█ ▀▀▀ ▀▀▀ ▀▀▀ ▀▀▀▀ ▀───▀ 　 
+    welcomeText = "\nWelcome to Joe Bloggs' Family Member System\n"
+    puts welcomeText  #=> this will be displayed at the beginning of the app
 
-▀▀█▀▀ █▀▀█ 　 
-─░█── █──█ 　 
-─░█── ▀▀▀▀ 　 
+    puts"===================SAMPLE====================="
+    puts self.family_member_to_s_each
+    @family_member_list.each {|fm|  test_type_of_family_member(fm)}
+    puts"====================SAMPLE END====================\n"
 
-░█▀▀█ █── █▀▀█ █▀▀▀ █▀▀▀ █▀▀ █ 　 
-░█▀▀▄ █── █──█ █─▀█ █─▀█ ▀▀█ ─ 　 
-░█▄▄█ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀ ─ 　 
-
-░█▀▀▀ █▀▀█ █▀▄▀█ ─▀─ █── █──█ 　 
-░█▀▀▀ █▄▄█ █─▀─█ ▀█▀ █── █▄▄█ 　 
-░█─── ▀──▀ ▀───▀ ▀▀▀ ▀▀▀ ▄▄▄█ 　 
-
-░█▀▀▀█ █──█ █▀▀ ▀▀█▀▀ █▀▀ █▀▄▀█ 
-─▀▀▀▄▄ █▄▄█ ▀▀█ ──█── █▀▀ █─▀─█ 
-░█▄▄▄█ ▄▄▄█ ▀▀▀ ──▀── ▀▀▀ ▀───▀ 
-"
-
-
-       puts bigText
   	num = 0
   	begin
   	  puts "1 Show all famliy members(each loop) \n
@@ -59,12 +46,11 @@ bigText = "
       when num == "6"
 		abort("See you!")
       end
-  		
   	end until num == "5"
 
   end
-
-
+  
+  # Search a family member with a firstname
   def search_a_family_member_for_spending_list
     puts "Enter a first name"
     fname = gets
@@ -107,7 +93,7 @@ bigText = "
     fm2.add_item_to_spending_list(Spending.new(9.99, "Flower"))
 
 
-    fm3 = FamilyMember.new("Jack", "Bloggs", "male", 2, FamilyMember.STATUS[:single])
+    fm3 = FamilyMember.new("Jack", "Bloggs", "Male", 2, FamilyMember.STATUS[:single])
     fm3.add_item_to_spending_list(Spending.new(9.99, "baby food"))
     fm3.add_item_to_spending_list(Spending.new(20, "baby food"))
     fm3.add_item_to_spending_list(Spending.new(10, "baby food"))
