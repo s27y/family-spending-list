@@ -1,5 +1,5 @@
-require_relative 'q1_family_member'
-require_relative 'q1_io'
+require_relative 'q1n2_family_member'
+require_relative 'q1n2_io'
 
 # This class is the main class
 #
