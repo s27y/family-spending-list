@@ -1,4 +1,4 @@
-require_relative 'q1_spending'
+require_relative 'q1n2_spending'
 
 # a class represent FamilyMember
 class FamilyMember
